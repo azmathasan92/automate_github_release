@@ -54,6 +54,7 @@ jobs:
         run: |
           owner="azmathasan92"
           repo="automate_github_release"
+          echo ${{ secrets.GITHUB_TOKEN }}
           curl \
             -X POST \
             -H "Accept: application/vnd.github+json" \
