@@ -31,7 +31,7 @@ jobs:
         with:
           current-version: ${{ steps.releaseVersion.outputs.Release_tag }}
           version-fragment: 'major'
-  
+
       - name: Bumping Minor Index
         id: bump_version_minor
         if: contains(github.event.pull_request.title, 'minor')
@@ -89,3 +89,4 @@ jobs:
             -H "Authorization: token ${{ secrets.TOKEN }}" \
              https://api.github.com/repos/$owner/$repo/releases \
             -d '{"tag_name":"${{ steps.bump_version_patch.outputs.next-version }}","target_commitish":"main","name":"v${{ steps.bump_version_patch.outputs.next-version }}","body":"Description of the release","draft":false,"prerelease":false,"generate_release_notes":false}'
+
