@@ -60,7 +60,7 @@ jobs:
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: token ${{ secrets.TOKEN }}" \
              https://api.github.com/repos/$owner/$repo/releases \
-            -d '{"tag_name":"${{ steps.bump_version_major.outputs.next-version }}","target_commitish":"main","name":"v${{ steps.bump_version_major.outputs.next-version }}","body":"Description of the release","draft":false,"prerelease":false,"generate_release_notes":false}'
+            -d '{"tag_name":"${{ steps.bump_version_major.outputs.next-version }}","target_commitish":"main","name":"${{ steps.bump_version_major.outputs.next-version }}","body":"Description of the release","draft":false,"prerelease":false,"generate_release_notes":false}'
 
       - name: Create release version for bump_version_minor
         if: contains(github.event.pull_request.title, 'minor')
@@ -74,7 +74,7 @@ jobs:
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: token ${{ secrets.TOKEN }}" \
              https://api.github.com/repos/$owner/$repo/releases \
-            -d '{"tag_name":"${{ steps.bump_version_minor.outputs.next-version }}","target_commitish":"main","name":"v${{ steps.bump_version_minor.outputs.next-version }}","body":"Description of the release","draft":false,"prerelease":false,"generate_release_notes":false}'
+            -d '{"tag_name":"${{ steps.bump_version_minor.outputs.next-version }}","target_commitish":"main","name":"${{ steps.bump_version_minor.outputs.next-version }}","body":"Description of the release","draft":false,"prerelease":false,"generate_release_notes":false}'
 
       - name: Create release version for bump_version_patch
         if: contains(github.event.pull_request.title, 'patch')
@@ -88,4 +88,4 @@ jobs:
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: token ${{ secrets.TOKEN }}" \
              https://api.github.com/repos/$owner/$repo/releases \
-            -d '{"tag_name":"${{ steps.bump_version_patch.outputs.next-version }}","target_commitish":"main","name":"v${{ steps.bump_version_patch.outputs.next-version }}","body":"Description of the release","draft":false,"prerelease":false,"generate_release_notes":true}'
+            -d '{"tag_name":"${{ steps.bump_version_patch.outputs.next-version }}","target_commitish":"main","name":"${{ steps.bump_version_patch.outputs.next-version }}","body":"Description of the release","draft":false,"prerelease":false,"generate_release_notes":true}'
