@@ -72,4 +72,3 @@ jobs:
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
              https://api.github.com/repos/$owner/$repo/releases \
             -d '{"tag_name":"${{ steps.bump_version_patch.outputs.next-version }}","target_commitish":"master","name":"${{ steps.bump_version_patch.outputs.next-version }}","body":"Description of the release","draft":false,"prerelease":false,"generate_release_notes":false}'
-
