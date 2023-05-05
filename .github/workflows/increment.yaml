@@ -34,7 +34,7 @@ jobs:
 
       - name: Bumping Minor Index
         id: bump_version_minor
-        if: contains(github.event.pull_request.title, 'minor') || contains(github.event.pull_request.title, 'feature')
+        if: contains(github.event.pull_request.title, 'minor')
         uses: christian-draeger/increment-semantic-version@1.0.3
         with:
           current-version: ${{ steps.releaseVersion.outputs.Release_tag }}
@@ -42,7 +42,7 @@ jobs:
 
       - name: Bumping Patch Index 
         id: bump_version_patch
-        if: contains(github.event.pull_request.title, 'patch') || contains(github.event.pull_request.title, 'bug')
+        if: contains(github.event.pull_request.title, 'patch')
         uses: christian-draeger/increment-semantic-version@1.0.3
         with:
           current-version: ${{ steps.releaseVersion.outputs.Release_tag }}
