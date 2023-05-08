@@ -26,7 +26,7 @@ jobs:
 
       - name: Bumping Major Index
         id: bump_version_major
-        if: contains(github.event.issue.labels.*.name, 'major')
+        if: contains(github.event.pull_request.labels.*.name, 'major')
         # if: contains(github.event.pull_request.title, 'major')
         uses: christian-draeger/increment-semantic-version@1.0.3
         with:
@@ -35,7 +35,7 @@ jobs:
 
       - name: Bumping Minor Index
         id: bump_version_minor
-        if: contains(github.event.issue.labels.*.name, 'minor')
+        if: contains(github.event.pull_request.labels.*.name, 'minor')
         # if: contains(github.event.pull_request.title, 'minor')
         uses: christian-draeger/increment-semantic-version@1.0.3
         with:
@@ -44,7 +44,7 @@ jobs:
 
       - name: Bumping Patch Index 
         id: bump_version_patch
-        if: contains(github.event.issue.labels.*.name, 'patch')
+        if: contains(github.event.pull_request.labels.*.name, 'patch')
         # if: contains(github.event.pull_request.title, 'patch')
         uses: christian-draeger/increment-semantic-version@1.0.3
         with:
@@ -80,7 +80,7 @@ jobs:
             -d '{"tag_name":"${{ steps.bump_version_minor.outputs.next-version }}","target_commitish":"main","name":"v${{ steps.bump_version_minor.outputs.next-version }}","body":"Description of the release","draft":false,"prerelease":false,"generate_release_notes":true}'
 
       - name: Create release version for bump_version_patch
-        if: contains(github.event.issue.labels.*.name, 'patch')
+        if: contains(github.event.pull_request.labels.*.name, 'patch')
         # if: contains(github.event.pull_request.title, 'patch')
         env: 
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
