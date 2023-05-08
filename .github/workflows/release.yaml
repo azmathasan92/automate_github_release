@@ -24,13 +24,13 @@ jobs:
       - name: Checkout Repository Code
         uses: actions/checkout@v3
 
-      - name: Bumping Major Index
-        id: bump_version_major
-        if: contains(github.event.pull_request.labels.*.name, 'major')
+      - name: Bumping Patch Index 
+        id: bump_version_patch
+        if: contains(github.event.pull_request.labels.*.name, 'patch')
         uses: christian-draeger/increment-semantic-version@1.0.3
         with:
           current-version: ${{ steps.releaseVersion.outputs.Release_tag }}
-          version-fragment: 'major'
+          version-fragment: 'bug'
 
       - name: Bumping Minor Index
         id: bump_version_minor
@@ -40,16 +40,16 @@ jobs:
           current-version: ${{ steps.releaseVersion.outputs.Release_tag }}
           version-fragment: 'feature'
 
-      - name: Bumping Patch Index 
-        id: bump_version_patch
-        if: contains(github.event.pull_request.labels.*.name, 'patch')
+      - name: Bumping Major Index
+        id: bump_version_major
+        if: contains(github.event.pull_request.labels.*.name, 'major')
         uses: christian-draeger/increment-semantic-version@1.0.3
         with:
           current-version: ${{ steps.releaseVersion.outputs.Release_tag }}
-          version-fragment: 'bug'
+          version-fragment: 'major'
 
-      - name: Create release version for bump_version_major
-        if: contains(github.event.pull_request.labels.*.name, 'major')
+      - name: Create release version for bump_version_patch
+        if: contains(github.event.pull_request.labels.*.name, 'patch')
         env: 
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
         run: |
@@ -60,7 +60,7 @@ jobs:
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: token ${{ secrets.TOKEN }}" \
              https://api.github.com/repos/$owner/$repo/releases \
-            -d '{"tag_name":"${{ steps.bump_version_major.outputs.next-version }}","target_commitish":"main","name":"v${{ steps.bump_version_major.outputs.next-version }}","body":"Description of the release","draft":false,"prerelease":false,"generate_release_notes":true}'
+            -d '{"tag_name":"${{ steps.bump_version_patch.outputs.next-version }}","target_commitish":"main","name":"v${{ steps.bump_version_patch.outputs.next-version }}","body":"Description of the release","draft":false,"prerelease":false,"generate_release_notes":true}'
 
       - name: Create release version for bump_version_minor
         if: contains(github.event.pull_request.labels.*.name, 'minor')
@@ -76,8 +76,8 @@ jobs:
              https://api.github.com/repos/$owner/$repo/releases \
             -d '{"tag_name":"${{ steps.bump_version_minor.outputs.next-version }}","target_commitish":"main","name":"v${{ steps.bump_version_minor.outputs.next-version }}","body":"Description of the release","draft":false,"prerelease":false,"generate_release_notes":true}'
 
-      - name: Create release version for bump_version_patch
-        if: contains(github.event.pull_request.labels.*.name, 'patch')
+      - name: Create release version for bump_version_major
+        if: contains(github.event.pull_request.labels.*.name, 'major')
         env: 
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
         run: |
@@ -88,4 +88,4 @@ jobs:
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: token ${{ secrets.TOKEN }}" \
              https://api.github.com/repos/$owner/$repo/releases \
-            -d '{"tag_name":"${{ steps.bump_version_patch.outputs.next-version }}","target_commitish":"main","name":"v${{ steps.bump_version_patch.outputs.next-version }}","body":"Description of the release","draft":false,"prerelease":false,"generate_release_notes":true}'
+            -d '{"tag_name":"${{ steps.bump_version_major.outputs.next-version }}","target_commitish":"main","name":"v${{ steps.bump_version_major.outputs.next-version }}","body":"Description of the release","draft":false,"prerelease":false,"generate_release_notes":true}'
