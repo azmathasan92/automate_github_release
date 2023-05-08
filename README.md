@@ -3,4 +3,4 @@ Automate Github Release and Release Notes Process
 
 # Update the patch version
 
-Adding some content
+How many releases are you planning for today? :P
