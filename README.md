@@ -2,3 +2,5 @@
 Automate Github Release and Release Notes Process
 
 # Update the patch version
+
+Adding some content
